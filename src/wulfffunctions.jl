@@ -2,7 +2,7 @@ function wulffproject(NormalVectors;projectaxis=:z)
 #=
 =#
     # normalize the input
-    NormalizeAll!(NormalVectors,projectaxis=projectaxis);
+    NormalVectors = NormalizeAll(NormalVectors,projectaxis=projectaxis);
     nVecs = size(NormalVectors,1);
 
     # pola coordinate
@@ -16,17 +16,17 @@ function wulffproject(NormalVectors;projectaxis=:z)
 
     PointVecs = NormalVectors.-ones(nVecs)*transpose(PolaCoord);
     if projectaxis==:z
-        PointProjected = PolaCoord-PointVecs./(PointVecs[:,3]*[1.0 1.0 1.0])
+        PointProjected = ones(nVecs)*transpose(PolaCoord)-PointVecs./(PointVecs[:,3]*[1.0 1.0 1.0]);
     elseif projectaxis==:x
-        PointProjected = PolaCoord-PointVecs./(PointVecs[:,1]*[1.0 1.0 1.0])
+        PointProjected = ones(nVecs)*transpose(PolaCoord)-PointVecs./(PointVecs[:,1]*[1.0 1.0 1.0]);
     elseif  projectaxis==:y
-        PointProjected = PolaCoord-PointVecs./(PointVecs[:,2]*[1.0 1.0 1.0])
+        PointProjected = ones(nVecs)*transpose(PolaCoord)-PointVecs./(PointVecs[:,2]*[1.0 1.0 1.0])
     end
 
     return PointProjected
 end
 
-function NormalizeAll!(NormalVectors;projectaxis=:z)
+function NormalizeAll(NormalVectors;projectaxis=:z)
 #=
     normalize all the vectors and make them point to the -z
 =#
@@ -44,5 +44,5 @@ function NormalizeAll!(NormalVectors;projectaxis=:z)
     end
 
     NormalVectors[ReverseLoc,:] = -NormalVectors[ReverseLoc,:];
-
+    return NormalVectors
 end
