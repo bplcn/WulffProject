@@ -1,4 +1,4 @@
-function wulffproject(NormalVectors,projectaxis=:z)
+function wulffproject(NormalVectors;projectaxis=:z)
 #=
 =#
     # normalize the input
@@ -26,7 +26,7 @@ function wulffproject(NormalVectors,projectaxis=:z)
     return PointProjected
 end
 
-function NormalizeAll!(NormalVectors,projectaxis=:z)
+function NormalizeAll!(NormalVectors;projectaxis=:z)
 #=
     normalize all the vectors and make them point to the -z
 =#
